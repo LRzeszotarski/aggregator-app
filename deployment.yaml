@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: aggregator-app
+  name: aggregator-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aggregator-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: aggregator-app
+    spec:
+      containers:
+        - image: lrzeszotarski/aggregator-app
+          name: aggregator-app
+          resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: aggregator-app
+  name: aggregator-app
+spec:
+  ports:
+    - name: 8081-8081
+      port: 8081
+      protocol: TCP
+      targetPort: 8081
+  selector:
+    app: aggregator-app
+  type: ClusterIP
+status:
+  loadBalancer: {}
